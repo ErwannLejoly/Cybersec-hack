@@ -54,7 +54,14 @@ python3 setup.py
 ⚠️ Nécessite `sudo` pour installer les outils système comme `nmap`, `john`, `neo4j`, `nikto`, `metasploit`, etc.
 
 ---
+## ✅ Droits à attribuer
+1. start.sh
+Le script doit être exécutable :
 
+```bash
+chmod +x start.sh
+Cela permet de le lancer avec ./start.sh
+```
 ## 🧪 Utilisation
 
 ```bash
