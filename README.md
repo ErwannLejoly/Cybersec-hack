@@ -1,90 +1,126 @@
  
-
-# CyberSec-hack - Framework d'orchestration d'audit de sécurité
-
-## Objectif
-
-CyberSecTool est un orchestrateur d’audit de sécurité qui automatise toutes les étapes classiques d’un pentest :
-
-- Scan réseau (Nmap)
-- Exploitation (Metasploit)
-- Post-exploitation (Mimikatz)
-- Crack de mots de passe (John + rockyou)
-- Cartographie Active Directory (BloodHound + SharpHound + Neo4j)
-- Génération automatique d’un rapport
+Voici un **README.md** complet pour ton dépôt GitHub **Cybersec-hack**, à jour avec toutes les fonctionnalités que tu as mises en place :
 
 ---
 
-##  Structure du projet
+```markdown
+# 🛠️ Cybersec-hack – Framework d'Orchestration d'Audit de Sécurité
+
+Cybersec-hack est un outil d’audit de sécurité automatisé combinant des outils de cybersécurité open-source pour effectuer :
+
+- La reconnaissance réseau
+- L'exploitation de vulnérabilités
+- La post-exploitation
+- Le cassage de mots de passe
+- L’analyse Active Directory
+- Le scan de vulnérabilités web
+- Le brute-force HTTP
+- Et la génération d’un rapport complet en PDF
+
+---
+
+## 🚀 Fonctionnalités principales
+
+| Module                   | Description |
+|--------------------------|-------------|
+| 🔍 Reconnaissance        | Scan furtif (Nmap) + parsing XML |
+| 💥 Exploitation          | Metasploit : MS17-010 (EternalBlue) |
+| 🧪 Post-Exploitation     | Mimikatz, escalade de privilèges, fichiers sensibles |
+| 🔐 Crack MDP             | John the Ripper + rockyou.txt |
+| 🧠 Active Directory      | Analyse via BloodHound (placeholder) |
+| 🌐 Vulnérabilités Web    | Scan avec Nikto |
+| 🧱 Brute-force Web       | Hydra avec wordlists |
+| 📄 Rapport               | HTML rendu en PDF (Jinja2 + pdfkit) |
+
+---
+
+## 🗂️ Structure du projet
 
 ```
-cybersec_tool/
-│
-├── main.py                      # Point d'entrée principal
-├── setup.py                     # Installation automatique des outils requis
-│
-├── reconnaissance.py            # Scan réseau et services
-├── exploitation.py              # Exploits via Metasploit
-├── post_exploitation.py         # Dump de credentials avec Mimikatz
-├── password_cracking.py         # Crack de mots de passe
-├── active_directory.py          # Cartographie AD avec BloodHound
-├── reporting.py                 # Génération de rapport final (HTML / PDF)
-│
-└── tools/                       # Scripts, binaires, wordlists externes
+cybersec-hack/
+├── main.py
+├── setup.py
+├── reconnaissance.py
+├── exploitation.py
+├── post_exploitation.py
+├── password_cracking.py
+├── active_directory.py
+├── vulnerability_scanner.py
+├── reporting.py
+├── templates/
+│   └── rapport_template.html
+└── tools/
     ├── mimikatz/
     └── wordlists/
+        ├── rockyou.txt
+        └── users.txt
 ```
 
 ---
 
-##  Installation automatique (`setup.py`)
+## 📦 Installation
 
-Le script `setup.py` vérifie et installe tous les outils nécessaires automatiquement :
+```bash
+git clone https://github.com/votre-user/cybersec-hack.git
+cd cybersec-hack
+python3 setup.py
+```
 
-###  Outils installés via `apt`
-
-- `nmap`
-- `john`
-- `msfconsole` (Metasploit Framework)
-- `bloodhound`
-- `neo4j`
-- `wordlists` (pour `rockyou.txt`)
-
-### 📦 Téléchargement automatique
-
-- **Mimikatz** : téléchargé depuis GitHub
-- **rockyou.txt** : extrait automatiquement depuis `/usr/share/wordlists`
-
-### 🛠️ Configuration automatique
-
-- **Neo4j** : installé, activé, démarré
-- **Mot de passe initial configuré** : `neo4j` → `password`
+> ⚠️ Nécessite `sudo` pour installer certains outils via APT.
 
 ---
 
-## ✅ Fonctionnalités prévues par module
-
-| Module                  | Outil utilisé             | Intégration                                |
-|-------------------------|---------------------------|---------------------------------------------|
-| **Reconnaissance**       | `nmap`                    | `python-nmap` ou `subprocess`               |
-| **Exploitation**         | `Metasploit`              | Automatisation via `msfrpc` ou `msfconsole` |
-| **Post-exploitation**    | `Mimikatz`                | Exécuté sur la cible via PowerShell         |
-| **Crack mot de passe**   | `John the Ripper` + rockyou.txt | Via subprocess                         |
-| **Active Directory**     | `SharpHound`, `BloodHound`, `Neo4j` | Collecte et visualisation               |
-| **Reporting**            | `Jinja2`, `WeasyPrint`    | HTML → PDF                                 |
-
----
-
-## 📌 Utilisation
+## 🧪 Utilisation
 
 ```bash
 python3 main.py --target 192.168.1.10 --full --output rapport_final.pdf
 ```
 
+Options :
+- `--target` : IP ou nom de domaine de la cible
+- `--full` : Lance tous les modules automatiquement
+- `--output` : Nom du fichier de rapport PDF généré
+
 ---
 
-## 🛡️ Avertissement
+## 🧰 Outils requis (installés automatiquement)
 
-⚠️ Ce projet est destiné à un usage **éducatif** uniquement. Toute utilisation non autorisée de ces outils sur des systèmes tiers est **illégale**.
+- `nmap`
+- `john`
+- `metasploit-framework`
+- `bloodhound`
+- `neo4j`
+- `nikto`
+- `hydra`
+- `wordlists` (rockyou.txt)
 
+---
+
+## 📄 Exemple de rapport
+
+Le rapport est généré en HTML puis converti en PDF. Il inclut :
+- La liste des ports ouverts et services détectés
+- Les exploits lancés
+- Les fichiers sensibles trouvés
+- Les mots de passe cassés
+- Les résultats de bruteforce web
+- Les éléments AD analysés
+
+---
+
+## ⚠️ Avertissement
+
+> Ce projet est fourni à **des fins pédagogiques uniquement**.  
+> N'utilisez **jamais cet outil** sur un système sans **autorisation explicite**.  
+> L’usage illégal de cet outil est **entièrement à vos risques et périls**.
+
+---
+
+## 📚 Auteurs
+
+**Cybersec-hack** – projet éducatif de démonstration pour les cours de cybersécurité.
 ```
+
+---
+
+Souhaites-tu aussi que je te génère un fichier `requirements.txt` avec les bibliothèques Python nécessaires ?
