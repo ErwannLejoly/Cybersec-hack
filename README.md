@@ -72,7 +72,7 @@ python3 setup.py
 
 ---
 
-## 🚀 2. 2 possibilitées d'utilisation: 
+## 2. 2 possibilitées d'utilisation: 
 
 ###  soit au Lancement automatique avec `start.sh`
 
