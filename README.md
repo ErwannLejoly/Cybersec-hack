@@ -62,6 +62,8 @@ Le script doit être exécutable :
 chmod +x start.sh
 Cela permet de le lancer avec ./start.sh
 ```
+### OU de Faire l'installation via le setup puis d'utiliser le script comme suit : 
+
 ## 🧪 Utilisation
 
 ```bash
