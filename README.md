@@ -72,9 +72,9 @@ python3 setup.py
 
 ---
 
-## 🚀 2. Utilisation
+## 🚀 2. 2 possibilitées d'utilisation: 
 
-### 🔁 Lancement automatique avec `start.sh`
+### 🔁 soit au Lancement automatique avec `start.sh`
 
 ```bash
 ./start.sh
@@ -84,7 +84,7 @@ python3 setup.py
 
 ---
 
-### 🧪 Mode manuel complet
+### 🧪 soit en Mode manuel complet
 
 ```bash
 python3 main.py --target <IP> --full --output rapport.pdf
