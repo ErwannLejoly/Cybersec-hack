@@ -59,14 +59,30 @@ def parse_nmap_results(xml_file):
         print(f"[!] Erreur de parsing : {e}")
         return []
 
-# Exemple d'utilisation depuis cybersec-hack (main.py)
-if __name__ == "__main__":
-    target = input("Cible à scanner : ")
-    xml_file = run_nmap_scan(target)
-    if xml_file:
-        results = parse_nmap_results(xml_file)
-        for host in results:
-            print(f"Hôte : {host['ip']}")
-            for port in host['ports']:
-                print(f"  Port {port['port']}/{port['protocol']} - Service : {port['service']}")
+def extended_reconnaissance(target, nmap_results):
+    print(f"[+] Début de la reconnaissance étendue sur {target}...")
 
+    # WhatWeb - Détection de technologies Web
+    try:
+        print("[*] Scan WhatWeb...")
+        subprocess.run(["whatweb", target], check=True)
+    except Exception:
+        print("[!] WhatWeb non disponible ou échec du scan.")
+
+    # Enum4linux si SMB détecté
+    if any("smb" in port['service'] for host in nmap_results for port in host['ports']):
+        try:
+            print("[*] Enum4linux détecté, lancement...")
+            subprocess.run(["enum4linux", "-a", target])
+        except Exception:
+            print("[!] Enum4linux non disponible ou erreur.")
+
+    # LDAP reconnaissance si port 389 détecté
+    if any(port['port'] == '389' for host in nmap_results for port in host['ports']):
+        try:
+            print("[*] LDAP détecté, tentative de ldapsearch...")
+            subprocess.run(["ldapsearch", "-x", "-H", f"ldap://{target}"], timeout=10)
+        except Exception:
+            print("[!] ldapsearch échoué ou indisponible.")
+
+    print("[✓] Reconnaissance étendue terminée.")
