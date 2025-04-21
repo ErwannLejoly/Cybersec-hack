@@ -1,41 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Rapport Cybersec-hack</title>
+    <meta charset="UTF-8">
+    <title>Rapport d'audit - Cybersec-hack</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background: #f4f4f4; color: #333; }
+        h1, h2, h3 { color: #2c3e50; }
+        ul { list-style-type: square; }
+        pre { background: #eee; padding: 10px; border-radius: 5px; }
+        section { margin-bottom: 30px; }
+    </style>
 </head>
 <body>
-  <h1>Audit de sécurité : {{ target }}</h1>
+    <h1>Rapport d'Audit de Sécurité</h1>
+    <h3>Cible : {{ target }}</h3>
 
-  <h2>Résultats Nmap</h2>
-  <ul>
-    {% for host in nmap %}
-      <li>{{ host.ip }}
+    <section>
+        <h2>🔍 Résultats Nmap</h2>
         <ul>
-          {% for port in host.ports %}
-            <li>{{ port.port }}/{{ port.protocol }} - {{ port.service }}</li>
-          {% endfor %}
+            {% for host in nmap %}
+                <li><strong>{{ host.ip }}</strong>
+                    <ul>
+                        {% for port in host.ports %}
+                            <li>{{ port.port }}/{{ port.protocol }} - {{ port.service }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
         </ul>
-      </li>
-    {% endfor %}
-  </ul>
+    </section>
 
-  <h2>Post-Exploitation</h2>
-  <p>{{ post.privilege_escalation }}</p>
-  <ul>
-    {% for f in post.sensitive_files %}
-      <li>{{ f }}</li>
-    {% endfor %}
-  </ul>
+    <section>
+        <h2>🔐 Mots de Passe Craqués</h2>
+        <ul>
+            {% for pwd in cracked %}
+                <li>{{ pwd }}</li>
+            {% endfor %}
+        </ul>
+    </section>
 
-  <h2>Mots de passe trouvés</h2>
-  <ul>
-    {% for pwd in cracked %}
-      <li>{{ pwd }}</li>
-    {% endfor %}
-  </ul>
+    <section>
+        <h2>📁 Post-Exploitation</h2>
+        <h4>Fichiers sensibles trouvés :</h4>
+        <ul>
+            {% for file in post.sensitive_files %}
+                <li>{{ file }}</li>
+            {% endfor %}
+        </ul>
+        <h4>Vérification de privilèges :</h4>
+        <pre>{{ post.privilege_escalation }}</pre>
+    </section>
 
-  <h2>Active Directory</h2>
-  <pre>{{ ad }}</pre>
+    <section>
+        <h2>🧠 Active Directory</h2>
+        <pre>{{ ad }}</pre>
+    </section>
+
+    <footer>
+        <hr>
+        <p>Généré par <strong>Cybersec-hack</strong></p>
+    </footer>
 </body>
 </html>
+
