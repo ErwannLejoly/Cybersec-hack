@@ -44,6 +44,11 @@ def setup_neo4j():
     except subprocess.CalledProcessError:
         print("[!] Le mot de passe Neo4j a peut-être déjà été configuré.")
 
+def setup_metasploit_db():
+    print("[+] Initialisation de la base de données Metasploit...")
+    apt_install("postgresql")
+    subprocess.call(['sudo', 'msfdb', 'init'])
+
 def check_and_install_tools():
     tools = {
         "nmap": "apt",
@@ -57,7 +62,8 @@ def check_and_install_tools():
         "enum4linux": "apt",
         "whatweb": "apt",
         "ldap-utils": "apt",
-        "exploitdb": "apt"
+        "exploitdb": "apt",
+        "postgresql": "apt"
     }
 
     for tool, method in tools.items():
@@ -81,6 +87,8 @@ def check_and_install_tools():
         print("[✓] rockyou.txt déjà présent.")
 
     setup_neo4j()
+    setup_metasploit_db()
+
     print("[✓] Tous les outils nécessaires sont prêts.")
 
 if __name__ == '__main__':
