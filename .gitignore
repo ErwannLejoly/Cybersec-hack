@@ -1,0 +1,29 @@
+# Caches Python
+__pycache__/
+*.pyc
+
+# Fichiers générés par l'audit
+*.log
+*.txt
+*.xml
+rapport_temp.html
+rapport_final.pdf
+cracked_passwords.txt
+mimikatz_output.txt
+nikto_output.txt
+msf_script.rc
+
+# Outils externes
+tools/mimikatz/
+tools/*.zip
+
+# Fichiers de config locaux
+.env
+*.bak
+
+# Répertoires d'IDE
+.vscode/
+.idea/
+
+# Environnement virtuel
+venv/
