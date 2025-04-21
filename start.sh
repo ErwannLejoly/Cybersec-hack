@@ -29,3 +29,9 @@ report=${report:-rapport_final.pdf}
 echo "[+] Lancement de l'audit sur $target..."
 python3 main.py --target "$target" --full --output "$report"
 
+# Étape 5 : Proposer élévation de privilèges locale
+read -p "[?] Voulez-vous tenter une élévation de privilège locale ? (y/N) : " elevate
+if [[ "$elevate" =~ ^[Yy]$ ]]; then
+    echo "[+] Lancement de l'escalade locale de privilèges..."
+    python3 priv_esc.py
+fi
