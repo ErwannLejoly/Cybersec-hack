@@ -122,7 +122,7 @@ python3 main.py --target <IP> --full --dry-run
 
 ---
 
-## 📄 Rapport généré
+## 📄 Rapport utilisant  du html pour générer un PDF: 
 
 Le fichier PDF contient :
 - Résultats de scan et services détectés
