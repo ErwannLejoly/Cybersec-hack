@@ -1,8 +1,8 @@
 # cybersec-hack/main.py
 
 import argparse
-from reconnaissance import run_nmap_scan, parse_nmap_results
-from exploitation import run_metasploit_exploit, run_mimikatz
+from reconnaissance import run_nmap_scan, parse_nmap_results, extended_reconnaissance
+from exploitation import run_metasploit_exploit, run_mimikatz, run_adaptive_exploitation
 from post_exploitation import run_dummy_post_exploitation
 from password_cracking import crack_passwords
 from active_directory import analyze_ad
@@ -29,9 +29,11 @@ def main():
             return
 
         nmap_results = parse_nmap_results(xml_file)
+        extended_reconnaissance(args.target, nmap_results)
+
         if args.dry_run:
             print("[DRY-RUN] Étapes suivantes simulées mais non exécutées.")
-            print("- Metasploit
+            print("- Exploitation adaptative
 - Mimikatz
 - Post-exploitation
 - Crack password
@@ -40,7 +42,7 @@ def main():
 - Brute-force web")
             return
 
-        run_metasploit_exploit(nmap_results)
+        run_adaptive_exploitation(nmap_results)
         mimikatz_results = run_mimikatz()
         post_exploitation_data = run_dummy_post_exploitation()
         cracked = crack_passwords(mimikatz_results)
@@ -65,14 +67,15 @@ def main():
             print("""
 === Menu Interactif Cybersec-hack ===
 1. Scan Nmap
-2. Exploitation Metasploit
-3. Mimikatz
-4. Post-exploitation
-5. Crack password
-6. Analyse AD
-7. Scan Web (Nikto)
-8. Brute-force HTTP
-9. Générer le rapport
+2. Reconnaissance étendue
+3. Exploitation Metasploit adaptative
+4. Mimikatz
+5. Post-exploitation
+6. Crack password
+7. Analyse AD
+8. Scan Web (Nikto)
+9. Brute-force HTTP
+10. Générer le rapport
 0. Quitter
             """)
             choice = input("Choix > ")
@@ -80,20 +83,22 @@ def main():
                 xml_file = run_nmap_scan(args.target)
                 parse_nmap_results(xml_file)
             elif choice == '2':
-                run_metasploit_exploit(parse_nmap_results(run_nmap_scan(args.target)))
+                extended_reconnaissance(args.target, parse_nmap_results(run_nmap_scan(args.target)))
             elif choice == '3':
-                run_mimikatz()
+                run_adaptive_exploitation(parse_nmap_results(run_nmap_scan(args.target)))
             elif choice == '4':
-                run_dummy_post_exploitation()
+                run_mimikatz()
             elif choice == '5':
-                crack_passwords("mimikatz_output.txt")
+                run_dummy_post_exploitation()
             elif choice == '6':
-                analyze_ad()
+                crack_passwords("mimikatz_output.txt")
             elif choice == '7':
-                run_nikto_scan(args.target)
+                analyze_ad()
             elif choice == '8':
-                run_web_bruteforce(args.target)
+                run_nikto_scan(args.target)
             elif choice == '9':
+                run_web_bruteforce(args.target)
+            elif choice == '10':
                 generate_report(args.target, [], [], "", args.output, {})
             elif choice == '0':
                 print("[+] Sortie.")
@@ -103,4 +108,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
