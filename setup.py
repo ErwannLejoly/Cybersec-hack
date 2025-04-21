@@ -45,15 +45,26 @@ def setup_neo4j():
         print("[!] Le mot de passe Neo4j a peut-être déjà été configuré.")
 
 def check_and_install_tools():
-    tools = [
-        "nmap", "john", "msfconsole", "bloodhound", "neo4j",
-        "nikto", "hydra", "wkhtmltopdf"
-    ]
+    tools = {
+        "nmap": "apt",
+        "john": "apt",
+        "msfconsole": "apt",
+        "bloodhound": "apt",
+        "neo4j": "apt",
+        "nikto": "apt",
+        "hydra": "apt",
+        "wkhtmltopdf": "apt",
+        "enum4linux": "apt",
+        "whatweb": "apt",
+        "ldap-utils": "apt",
+        "exploitdb": "apt"
+    }
 
-    for tool in tools:
+    for tool, method in tools.items():
         if not is_installed(tool):
             print(f"[!] {tool} non installé. Installation...")
-            apt_install(tool)
+            if method == "apt":
+                apt_install(tool)
         else:
             print(f"[✓] {tool} est déjà installé.")
 
