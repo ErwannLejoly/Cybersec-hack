@@ -1,40 +1,25 @@
- 
-Voici un **README.md** complet pour ton dépôt GitHub **Cybersec-hack**, à jour avec toutes les fonctionnalités que tu as mises en place :
 
----
-
-```markdown
 # 🛠️ Cybersec-hack – Framework d'Orchestration d'Audit de Sécurité
 
-Cybersec-hack est un outil d’audit de sécurité automatisé combinant des outils de cybersécurité open-source pour effectuer :
+**Cybersec-hack** est un outil d’audit de sécurité automatisé qui orchestre plusieurs outils bien connus (Nmap, Metasploit, John the Ripper, Mimikatz, BloodHound, Nikto, Hydra...) pour réaliser un test d'intrusion complet, du scan initial jusqu'au rapport final en PDF.
 
-- La reconnaissance réseau
-- L'exploitation de vulnérabilités
-- La post-exploitation
-- Le cassage de mots de passe
-- L’analyse Active Directory
-- Le scan de vulnérabilités web
-- Le brute-force HTTP
-- Et la génération d’un rapport complet en PDF
 
----
+## 🚀 Fonctionnalités
 
-## 🚀 Fonctionnalités principales
-
-| Module                   | Description |
-|--------------------------|-------------|
-| 🔍 Reconnaissance        | Scan furtif (Nmap) + parsing XML |
-| 💥 Exploitation          | Metasploit : MS17-010 (EternalBlue) |
-| 🧪 Post-Exploitation     | Mimikatz, escalade de privilèges, fichiers sensibles |
-| 🔐 Crack MDP             | John the Ripper + rockyou.txt |
-| 🧠 Active Directory      | Analyse via BloodHound (placeholder) |
-| 🌐 Vulnérabilités Web    | Scan avec Nikto |
-| 🧱 Brute-force Web       | Hydra avec wordlists |
-| 📄 Rapport               | HTML rendu en PDF (Jinja2 + pdfkit) |
+| Module                  | Description |
+|-------------------------|-------------|
+| 🔍 Reconnaissance        | Scan furtif avec Nmap (TCP, services, OS) |
+| 💥 Exploitation          | Attaque automatisée avec Metasploit (ex: EternalBlue) |
+| 🧪 Post-exploitation     | Mimikatz, recherche de fichiers sensibles, vérification de privilèges |
+| 🔐 Password cracking     | Crack des hashs avec John + rockyou.txt |
+| 🧠 Analyse Active Directory | Intégration avec BloodHound (Neo4j) |
+| 🌐 Scan de vulnérabilités Web | Nikto + parsing |
+| 🧱 Brute-force HTTP      | Hydra (si serveur web détecté) |
+| 📄 Génération de rapport | HTML → PDF avec résumé de l’audit |
 
 ---
 
-## 🗂️ Structure du projet
+## 📁 Structure du projet
 
 ```
 cybersec-hack/
@@ -58,15 +43,15 @@ cybersec-hack/
 
 ---
 
-## 📦 Installation
+## 🧰 Installation
 
 ```bash
-git clone https://github.com/votre-user/cybersec-hack.git
+git clone https://github.com/<ton-utilisateur>/cybersec-hack.git
 cd cybersec-hack
 python3 setup.py
 ```
 
-> ⚠️ Nécessite `sudo` pour installer certains outils via APT.
+⚠️ Nécessite `sudo` pour installer les outils système comme `nmap`, `john`, `neo4j`, `nikto`, `metasploit`, etc.
 
 ---
 
@@ -76,14 +61,14 @@ python3 setup.py
 python3 main.py --target 192.168.1.10 --full --output rapport_final.pdf
 ```
 
-Options :
-- `--target` : IP ou nom de domaine de la cible
-- `--full` : Lance tous les modules automatiquement
-- `--output` : Nom du fichier de rapport PDF généré
+**Arguments :**
+- `--target` : IP ou hostname de la cible
+- `--full` : Lance tous les modules en mode automatique
+- `--output` : Nom du rapport PDF généré
 
 ---
 
-## 🧰 Outils requis (installés automatiquement)
+## 📦 Outils intégrés (installés automatiquement)
 
 - `nmap`
 - `john`
@@ -96,31 +81,34 @@ Options :
 
 ---
 
-## 📄 Exemple de rapport
+## 🧾 Rapport généré
 
-Le rapport est généré en HTML puis converti en PDF. Il inclut :
-- La liste des ports ouverts et services détectés
-- Les exploits lancés
-- Les fichiers sensibles trouvés
-- Les mots de passe cassés
-- Les résultats de bruteforce web
-- Les éléments AD analysés
+Le rapport contient :
+- Les hôtes et services détectés
+- Les vulnérabilités exploitées
+- Les mots de passe découverts
+- Les chemins d’escalade de privilèges
+- Les failles web et bruteforce
+- Et bien plus…
 
 ---
 
 ## ⚠️ Avertissement
 
-> Ce projet est fourni à **des fins pédagogiques uniquement**.  
-> N'utilisez **jamais cet outil** sur un système sans **autorisation explicite**.  
-> L’usage illégal de cet outil est **entièrement à vos risques et périls**.
+> Ce projet est uniquement destiné à des fins **pédagogiques** et **légales**.  
+> Toute utilisation sur des systèmes non autorisés est **strictement interdite** et **pénalement répréhensible**.  
+> Vous êtes **entièrement responsable** de l’usage que vous en faites.
 
 ---
 
-## 📚 Auteurs
+## 📚 Auteur
 
-**Cybersec-hack** – projet éducatif de démonstration pour les cours de cybersécurité.
+Projet pédagogique réalisé pour les cours de cybersécurité avancée.  
+By [Ton Nom ou Ton Pseudo]
 ```
 
 ---
 
-Souhaites-tu aussi que je te génère un fichier `requirements.txt` avec les bibliothèques Python nécessaires ?
+Souhaites-tu maintenant que je te prépare aussi un :
+- `requirements.txt` (Jinja2, pdfkit, etc.) ?
+- `.gitignore` pour ne pas versionner les outputs / binaires ? 
