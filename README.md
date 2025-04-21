@@ -74,7 +74,7 @@ python3 setup.py
 
 ## 🚀 2. 2 possibilitées d'utilisation: 
 
-### 🔁 soit au Lancement automatique avec `start.sh`
+###  soit au Lancement automatique avec `start.sh`
 
 ```bash
 ./start.sh
@@ -84,7 +84,7 @@ python3 setup.py
 
 ---
 
-### 🧪 soit en Mode manuel complet
+### soit en Mode manuel complet
 
 ```bash
 python3 main.py --target <IP> --full --output rapport.pdf
@@ -96,7 +96,7 @@ python3 main.py --target <IP> --full --output rapport.pdf
 
 ---
 
-### 🧠 Menu interactif
+###  Menu interactif
 
 ```bash
 python3 main.py --target <IP> --interactive
@@ -122,7 +122,7 @@ python3 main.py --target <IP> --full --dry-run
 
 ---
 
-## 📄 Rapport utilisant  du html pour générer un PDF: 
+##  Rapport utilisant  du html pour générer un PDF: 
 
 Le fichier PDF contient :
 - Résultats de scan et services détectés
