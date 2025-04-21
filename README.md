@@ -1,30 +1,19 @@
 
 # 🛠️ Cybersec-hack – Framework d'Orchestration d'Audit de Sécurité
 
-**Cybersec-hack** est un outil d’audit de sécurité automatisé qui orchestre plusieurs outils bien connus (Nmap, Metasploit, John the Ripper, Mimikatz, BloodHound, Nikto, Hydra...) pour réaliser un test d'intrusion complet, du scan initial jusqu'au rapport final en PDF.
+**Cybersec-hack** est un orchestrateur Python qui centralise reconnaissance, exploitation, post-exploitation, analyse AD, brute-force web, génération de rapport PDF… et plus encore !
 
 
-## 🚀 Fonctionnalités
 
-| Module                  | Description |
-|-------------------------|-------------|
-| 🔍 Reconnaissance        | Scan furtif avec Nmap (TCP, services, OS) |
-| 💥 Exploitation          | Attaque automatisée avec Metasploit (ex: EternalBlue) |
-| 🧪 Post-exploitation     | Mimikatz, recherche de fichiers sensibles, vérification de privilèges |
-| 🔐 Password cracking     | Crack des hashs avec John + rockyou.txt |
-| 🧠 Analyse Active Directory | Intégration avec BloodHound (Neo4j) |
-| 🌐 Scan de vulnérabilités Web | Nikto + parsing |
-| 🧱 Brute-force HTTP      | Hydra (si serveur web détecté) |
-| 📄 Génération de rapport | HTML → PDF avec résumé de l’audit |
+## 🔧 1. Installation & préparation
 
----
-
-## 📁 Structure du projet
+### 📁 Arborescence du projet
 
 ```
 cybersec-hack/
 ├── main.py
 ├── setup.py
+├── start.sh
 ├── reconnaissance.py
 ├── exploitation.py
 ├── post_exploitation.py
@@ -34,84 +23,129 @@ cybersec-hack/
 ├── reporting.py
 ├── templates/
 │   └── rapport_template.html
-└── tools/
-    ├── mimikatz/
-    └── wordlists/
-        ├── rockyou.txt
-        └── users.txt
+├── tools/
+│   ├── mimikatz/
+│   └── wordlists/
+│       ├── rockyou.txt
+│       └── users.txt
+├── .gitignore
+├── README.md
 ```
 
 ---
 
-## 🧰 Installation
+### 🧩 Outils installés automatiquement via `setup.py`
+
+- `nmap`, `john`, `hydra`, `nikto`
+- `msfconsole` (Metasploit) + PostgreSQL + `msfdb init`
+- `bloodhound`, `neo4j` (avec mot de passe auto configuré)
+- `enum4linux`, `whatweb`, `ldap-utils`, `exploitdb`
+- `rockyou.txt` copié & décompressé dans `tools/wordlists/`
+- `mimikatz` téléchargé depuis GitHub
+- Dépendances Python : `jinja2`, `pdfkit`, `requests`
+
+---
+
+### ⚙️ Étapes d'installation
+
+1. **Cloner le dépôt**
 
 ```bash
-git clone https://github.com/ErwannLejoly/cybersec-hack.git
+git clone https://github.com/ton-user/cybersec-hack.git
 cd cybersec-hack
-python3 setup.py
 ```
 
-⚠️ Nécessite `sudo` pour installer les outils système comme `nmap`, `john`, `neo4j`, `nikto`, `metasploit`, etc.
-
----
-## ✅ Droits à attribuer
-1. start.sh
-Le script doit être exécutable :
+2. **Donner les droits au script de démarrage**
 
 ```bash
 chmod +x start.sh
-Cela permet de le lancer avec ./start.sh
+chmod +x setup.py  # Optionnel
 ```
-### OU de Faire l'installation via le setup puis d'utiliser le script comme suit : 
 
-## 🧪 Utilisation
+3. **Lancer l’installation complète**
 
 ```bash
-python3 main.py --target 192.168.1.10 --full --output rapport_final.pdf
+python3 setup.py
 ```
 
-**Arguments :**
+> ⚠️ Ce script installe tous les outils nécessaires avec `sudo`.
+
+---
+
+## 🚀 2. Utilisation
+
+### 🔁 Lancement automatique avec `start.sh`
+
+```bash
+./start.sh
+```
+
+> Demande la cible, le nom du rapport, puis lance l’audit complet
+
+---
+
+### 🧪 Mode manuel complet
+
+```bash
+python3 main.py --target <IP> --full --output rapport.pdf
+```
+
 - `--target` : IP ou hostname de la cible
-- `--full` : Lance tous les modules en mode automatique
-- `--output` : Nom du rapport PDF généré
+- `--full` : Lance tous les modules en enchaînement
+- `--output` : Nom du rapport final PDF (défaut : `rapport_final.pdf`)
 
 ---
 
-## 📦 Outils intégrés (installés automatiquement)
+### 🧠 Menu interactif
 
-- `nmap`
-- `john`
-- `metasploit-framework`
-- `bloodhound`
-- `neo4j`
-- `nikto`
-- `hydra`
-- `wordlists` (rockyou.txt)
+```bash
+python3 main.py --target <IP> --interactive
+```
+
+Permet de lancer chaque module manuellement :
+- Reconnaissance
+- Exploitation (Metasploit)
+- Mimikatz
+- Post-exploitation
+- Bruteforce Web
+- Rapport final
 
 ---
 
-## 🧾 Rapport généré
+### 👀 Mode simulation
 
-Le rapport contient :
-- Les hôtes et services détectés
-- Les vulnérabilités exploitées
-- Les mots de passe découverts
-- Les chemins d’escalade de privilèges
-- Les failles web et bruteforce
-- Et bien plus…
+```bash
+python3 main.py --target <IP> --full --dry-run
+```
+
+> Affiche les étapes sans rien exécuter. Utile pour les démonstrations.
+
+---
+
+## 📄 Rapport généré
+
+Le fichier PDF contient :
+- Résultats de scan et services détectés
+- Exploits utilisés et preuves
+- Hashs cassés (via John + rockyou)
+- Chemins d’exploitation AD (BloodHound)
+- Brute-force Web
+- Score de risque par service
 
 ---
 
 ## ⚠️ Avertissement
 
-> Ce projet est uniquement destiné à des fins **pédagogiques** et **légales**.  
-> Toute utilisation sur des systèmes non autorisés est **strictement interdite** et **pénalement répréhensible**.  
-> Vous êtes **entièrement responsable** de l’usage que vous en faites.
+> Ce projet est fourni **à des fins pédagogiques uniquement**.  
+> Toute utilisation non autorisée est **illégale** et sous votre responsabilité.
 
 ---
 
-## 📚 Auteur
+## 👨‍💻 Auteur
 
-Projet pédagogique réalisé pour les cours de cybersécurité avancée.  
-By Erwann Lejoly
+Projet Cybersec-hack – conçu pour les cours pratiques de cybersécurité offensive.
+```
 
+---
+
+Souhaites-tu que je t’aide à générer un `Makefile`, ou que je l’intègre automatiquement dans ton dépôt ?
