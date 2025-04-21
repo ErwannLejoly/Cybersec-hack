@@ -11,14 +11,14 @@ def run_nmap_scan(target):
     try:
         subprocess.run([
             "nmap",
-            "-sS",              # SYN scan (furtif)
-            "-sV",              # Détection de version
-            "-O",               # Détection OS
-            "--max-retries", "2",   # Moins d'essais
-            "--host-timeout", "60s", # Timeout plus court
-            "--scan-delay", "200ms", # Délai entre les paquets (furtif)
-            "--max-rate", "50",     # Limiter le débit de scan
-            "-T2",              # Mode lent (furtif)
+            "-sS",
+            "-sV",
+            "-O",
+            "--max-retries", "2",
+            "--host-timeout", "60s",
+            "--scan-delay", "200ms",
+            "--max-rate", "50",
+            "-T2",
             "-oX", output_file,
             target
         ], check=True)
@@ -58,8 +58,8 @@ def parse_nmap_results(xml_file):
     except Exception as e:
         print(f"[!] Erreur de parsing : {e}")
         return []
-        
-# Exemple d'utilisation depuis main.py
+
+# Exemple d'utilisation depuis cybersec-hack (main.py)
 if __name__ == "__main__":
     target = input("Cible à scanner : ")
     xml_file = run_nmap_scan(target)
@@ -69,3 +69,4 @@ if __name__ == "__main__":
             print(f"Hôte : {host['ip']}")
             for port in host['ports']:
                 print(f"  Port {port['port']}/{port['protocol']} - Service : {port['service']}")
+
