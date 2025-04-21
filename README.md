@@ -104,11 +104,5 @@ Le rapport contient :
 ## 📚 Auteur
 
 Projet pédagogique réalisé pour les cours de cybersécurité avancée.  
-By [Ton Nom ou Ton Pseudo]
-```
+By Erwann Lejoly
 
----
-
-Souhaites-tu maintenant que je te prépare aussi un :
-- `requirements.txt` (Jinja2, pdfkit, etc.) ?
-- `.gitignore` pour ne pas versionner les outputs / binaires ? 
