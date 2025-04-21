@@ -1,13 +1,13 @@
 
-# 🛠️ Cybersec-hack – Framework d'Orchestration d'Audit de Sécurité
+# Cybersec-hack – Framework d'Orchestration d'Audit de Sécurité
 
 **Cybersec-hack** est un orchestrateur Python qui centralise reconnaissance, exploitation, post-exploitation, analyse AD, brute-force web, génération de rapport PDF… et plus encore !
 
 
 
-## 🔧 1. Installation & préparation
+##  1. Installation & préparation
 
-### 📁 Arborescence du projet
+###  Arborescence du projet
 
 ```
 cybersec-hack/
@@ -34,7 +34,7 @@ cybersec-hack/
 
 ---
 
-### 🧩 Outils installés automatiquement via `setup.py`
+###  Outils installés automatiquement via `setup.py`
 
 - `nmap`, `john`, `hydra`, `nikto`
 - `msfconsole` (Metasploit) + PostgreSQL + `msfdb init`
@@ -46,12 +46,12 @@ cybersec-hack/
 
 ---
 
-### ⚙️ Étapes d'installation
+### ⚙ Étapes d'installation
 
 1. **Cloner le dépôt**
 
 ```bash
-git clone https://github.com/ton-user/cybersec-hack.git
+git clone https://github.com/ErwannLejoly/cybersec-hack.git
 cd cybersec-hack
 ```
 
@@ -68,7 +68,7 @@ chmod +x setup.py  # Optionnel
 python3 setup.py
 ```
 
-> ⚠️ Ce script installe tous les outils nécessaires avec `sudo`.
+> ⚠️ Ce script installe tous les outils nécessaires avec `sudo` toutefois vérifier bien que python 3 est installé ou installer le manuellement , pour pouvoir executer correctement votre script.
 
 ---
 
@@ -134,7 +134,7 @@ Le fichier PDF contient :
 
 ---
 
-## ⚠️ Avertissement
+## ⚠️⚠️ Avertissement de sécurité et d'utilisaton :⚠️⚠️
 
 > Ce projet est fourni **à des fins pédagogiques uniquement**.  
 > Toute utilisation non autorisée est **illégale** et sous votre responsabilité.
@@ -144,8 +144,6 @@ Le fichier PDF contient :
 ## 👨‍💻 Auteur
 
 Projet Cybersec-hack – conçu pour les cours pratiques de cybersécurité offensive.
+Par Erwann Lejoly
 ```
-
 ---
-
-Souhaites-tu que je t’aide à générer un `Makefile`, ou que je l’intègre automatiquement dans ton dépôt ?
