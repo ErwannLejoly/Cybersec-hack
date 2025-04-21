@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rapport Cybersec-hack</title>
+</head>
+<body>
+  <h1>Audit de sécurité : {{ target }}</h1>
+
+  <h2>Résultats Nmap</h2>
+  <ul>
+    {% for host in nmap %}
+      <li>{{ host.ip }}
+        <ul>
+          {% for port in host.ports %}
+            <li>{{ port.port }}/{{ port.protocol }} - {{ port.service }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2>Post-Exploitation</h2>
+  <p>{{ post.privilege_escalation }}</p>
+  <ul>
+    {% for f in post.sensitive_files %}
+      <li>{{ f }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Mots de passe trouvés</h2>
+  <ul>
+    {% for pwd in cracked %}
+      <li>{{ pwd }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Active Directory</h2>
+  <pre>{{ ad }}</pre>
+</body>
+</html>
